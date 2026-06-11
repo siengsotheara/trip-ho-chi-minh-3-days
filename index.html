@@ -128,6 +128,35 @@
   .tag-snack  { background: #FAEEDA; color: #854F0B; }
   .tag-shop   { background: #FBEAF0; color: #72243E; }
 
+  /* Filter buttons */
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .filter-btn {
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 0.5px solid rgba(0,0,0,0.15);
+    font-size: 12px;
+    cursor: pointer;
+    background: #fff;
+    color: #666;
+    transition: all .15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    user-select: none;
+  }
+  .filter-btn:hover { background: #f0efeb; }
+  .filter-btn.active { border-color: transparent; color: #fff; }
+  .filter-btn.active.f-all    { background: #1a1a18; }
+  .filter-btn.active.f-break  { background: #378ADD; }
+  .filter-btn.active.f-coffee { background: #7F77DD; }
+  .filter-btn.active.f-snack  { background: #EF9F27; }
+  .filter-btn.active.f-lunch  { background: #1D9E75; }
+  .filter-btn.active.f-dinner { background: #E24B4A; }
+  .filter-btn.active.f-shop   { background: #D4537E; }
+  .filter-btn.active.f-transit{ background: #9E9E9E; }
+  .filter-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
   /* Map button */
   .map-btn {
     display: inline-flex;
@@ -250,6 +279,9 @@
     .day-header:hover { background: #363633; }
     .map-btn, .place-map { background: #3a3a36; color: #aaa; }
     .map-btn:hover, .place-map:hover { background: #1e3a54; color: #7ab8e8; }
+    .filter-btn { background: #252522; border-color: rgba(255,255,255,0.1); color: #999; }
+    .filter-btn:hover { background: #2e2e2b; }
+    .filter-btn.active.f-all { background: #e8e7e3; color: #1a1a18; }
   }
 </style>
 </head>
@@ -287,6 +319,17 @@
 
   <!-- ITINERARY -->
   <div id="itinerary" class="section visible">
+    <div class="filters">
+      <div class="filter-btn f-all active" onclick="toggleFilter('all',this)"><i class="ti ti-layout-list" style="font-size:12px"></i> All</div>
+      <div class="filter-btn f-break"   onclick="toggleFilter('d-break',this)"><span class="filter-dot" style="background:#378ADD"></span> Breakfast</div>
+      <div class="filter-btn f-coffee"  onclick="toggleFilter('d-coffee',this)"><span class="filter-dot" style="background:#7F77DD"></span> Coffee</div>
+      <div class="filter-btn f-snack"   onclick="toggleFilter('d-snack',this)"><span class="filter-dot" style="background:#EF9F27"></span> Snack</div>
+      <div class="filter-btn f-lunch"   onclick="toggleFilter('d-lunch',this)"><span class="filter-dot" style="background:#1D9E75"></span> Lunch</div>
+      <div class="filter-btn f-dinner"  onclick="toggleFilter('d-dinner',this)"><span class="filter-dot" style="background:#E24B4A"></span> Dinner</div>
+      <div class="filter-btn f-shop"    onclick="toggleFilter('d-shop',this)"><span class="filter-dot" style="background:#D4537E"></span> Shopping</div>
+      <div class="filter-btn f-transit" onclick="toggleFilter('d-transit',this)"><span class="filter-dot" style="background:#9E9E9E"></span> Transit</div>
+    </div>
+
     <div class="legend">
       <div class="leg-item"><div class="leg-dot d-transit"></div> Transit</div>
       <div class="leg-item"><div class="leg-dot d-break"></div> Breakfast</div>
@@ -541,6 +584,26 @@
       body.style.display = 'none';
       icon.className = 'ti ti-chevron-up';
     }
+  }
+
+  let activeFilter = 'all';
+  function toggleFilter(type, el) {
+    activeFilter = type;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.event').forEach(ev => {
+      if (type === 'all') {
+        ev.style.display = 'flex';
+      } else {
+        const dot = ev.querySelector('.dot');
+        const match = dot && dot.classList.contains(type);
+        ev.style.display = match ? 'flex' : 'none';
+      }
+    });
+    document.querySelectorAll('.day-card').forEach(card => {
+      const visible = [...card.querySelectorAll('.event')].some(e => e.style.display !== 'none');
+      card.style.display = visible ? '' : 'none';
+    });
   }
 </script>
 </body>
