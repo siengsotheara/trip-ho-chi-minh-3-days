@@ -157,6 +157,68 @@
   .filter-btn.active.f-transit{ background: #9E9E9E; }
   .filter-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 
+  /* Suggestions tab */
+  .sug-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .sug-filter {
+    padding: 5px 13px;
+    border-radius: 20px;
+    border: 0.5px solid rgba(0,0,0,0.15);
+    font-size: 12px;
+    cursor: pointer;
+    background: #fff;
+    color: #666;
+    transition: all .15s;
+    font-weight: 500;
+    user-select: none;
+  }
+  .sug-filter:hover { background: #f0efeb; }
+  .sug-filter.active { color: #fff; border-color: transparent; }
+  .sug-filter.active[data-tag="all"]        { background: #1a1a18; }
+  .sug-filter.active[data-tag="breakfast"]  { background: #378ADD; }
+  .sug-filter.active[data-tag="coffee"]     { background: #7F77DD; }
+  .sug-filter.active[data-tag="snack"]      { background: #EF9F27; }
+  .sug-filter.active[data-tag="bbq"]        { background: #E24B4A; }
+  .sug-filter.active[data-tag="pub"]        { background: #3D2C6E; }
+  .sug-filter.active[data-tag="latenight"]  { background: #2C3E50; }
+  .sug-filter.active[data-tag="explore"]    { background: #1D9E75; }
+  .sug-filter.active[data-tag="shopping"]   { background: #D4537E; }
+
+  .sug-grid { display: flex; flex-direction: column; gap: 8px; }
+  .sug-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: .7rem .9rem;
+    background: #fff;
+    border: 0.5px solid rgba(0,0,0,0.08);
+    border-radius: 10px;
+    transition: box-shadow .15s;
+  }
+  .sug-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .sug-card.hidden { display: none; }
+  .sug-icon { font-size: 20px; flex-shrink: 0; width: 32px; text-align: center; }
+  .sug-body { flex: 1; min-width: 0; }
+  .sug-name { font-size: 13px; font-weight: 500; color: #1a1a18; }
+  .sug-desc { font-size: 12px; color: #666; margin-top: 2px; }
+  .sug-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
+  .sug-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 20px;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+  }
+  .st-breakfast { background: #E6F1FB; color: #0C447C; }
+  .st-coffee    { background: #EEEDFE; color: #3C3489; }
+  .st-snack     { background: #FAEEDA; color: #854F0B; }
+  .st-bbq       { background: #FCEBEB; color: #A32D2D; }
+  .st-pub       { background: #EDEBF8; color: #3D2C6E; }
+  .st-latenight { background: #E8EDF2; color: #2C3E50; }
+  .st-explore   { background: #E1F5EE; color: #0F6E56; }
+  .st-shopping  { background: #FBEAF0; color: #72243E; }
+  .sug-empty { font-size: 13px; color: #888; text-align: center; padding: 2rem 0; display: none; }
+
   /* Map button */
   .map-btn {
     display: inline-flex;
@@ -282,6 +344,10 @@
     .filter-btn { background: #252522; border-color: rgba(255,255,255,0.1); color: #999; }
     .filter-btn:hover { background: #2e2e2b; }
     .filter-btn.active.f-all { background: #e8e7e3; color: #1a1a18; }
+    .sug-filter { background: #252522; border-color: rgba(255,255,255,0.1); color: #999; }
+    .sug-filter:hover { background: #2e2e2b; }
+    .sug-card { background: #252522; border-color: rgba(255,255,255,0.08); }
+    .sug-name { color: #e8e7e3; }
   }
 </style>
 </head>
@@ -315,6 +381,7 @@
     <div class="tab active" onclick="showTab('itinerary',this)"><i class="ti ti-calendar"></i> Itinerary</div>
     <div class="tab" onclick="showTab('places',this)"><i class="ti ti-map-pin"></i> All Places</div>
     <div class="tab" onclick="showTab('tips',this)"><i class="ti ti-bulb"></i> Tips</div>
+    <div class="tab" onclick="showTab('discover',this)"><i class="ti ti-compass"></i> Discover</div>
   </div>
 
   <!-- ITINERARY -->
@@ -357,6 +424,11 @@
           <div class="event-detail"><h4>Arrive Ho Chi Minh City</h4><p>Take taxi to accommodation · ~20–30 min depending on traffic</p><span class="tag tag-transit">Arrival</span></div>
         </div>
         <div class="event">
+          <span class="event-time">15:30</span><span class="dot d-dinner"></span>
+          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/AsEM3iMv1wUEEwQS6" target="_blank" rel="noopener">Grab Some snack “Banh Mi” Vietnam Best Bread ( Bánh Mì Pate Gans )<i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>~1–1.5 h dinner · BBQ spot near Bui Vien · first meal in Saigon</p><span class="tag tag-dinner">Dinner</span></div>
+          <a href="https://maps.app.goo.gl/AsEM3iMv1wUEEwQS6" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
+        </div>
+        <div class="event">
           <span class="event-time">~16:00</span><span class="dot d-transit"></span>
           <div class="event-detail"><h4><a href="https://maps.app.goo.gl/LpF3rYMLj1AqYyUo8" target="_blank" rel="noopener">Check-in · MIN Apartment, RiverGate Residence <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Bui Vien · rest and freshen up after the long journey</p><span class="tag tag-transit">Check-in</span></div>
           <a href="https://maps.app.goo.gl/LpF3rYMLj1AqYyUo8" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
@@ -365,20 +437,25 @@
           <span class="event-time">17:00</span><span class="dot d-transit"></span>
           <div class="event-detail"><h4>Get ready for the evening</h4><p>Freshen up at MIN Apartment · rest before heading out</p><span class="tag tag-transit">Rest</span></div>
         </div>
+
         <div class="event">
-          <span class="event-time">18:00</span><span class="dot d-dinner"></span>
-          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/BpFNJpCTUzJw8JEw9" target="_blank" rel="noopener">BBQ Dinner <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>~1–1.5 h dinner · BBQ spot near Bui Vien · first meal in Saigon</p><span class="tag tag-dinner">Dinner</span></div>
-          <a href="https://maps.app.goo.gl/BpFNJpCTUzJw8JEw9" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
-        </div>
-        <div class="event">
-          <span class="event-time">19:30</span><span class="dot d-shop"></span>
-          <div class="event-detail"><h4>Bui Vien Walking Street · Pub Night</h4><p>Right outside the door · live music, rooftop bars, street energy · enjoy the night</p><span class="tag tag-shop">Nightlife</span></div>
-        </div>
-        <div class="event">
-          <span class="event-time">21:30</span><span class="dot d-snack"></span>
+          <span class="event-time">19:30</span><span class="dot d-snack"></span>
           <div class="event-detail"><h4><a href="https://maps.app.goo.gl/xJcAjktm4hpC7DZD9" target="_blank" rel="noopener">Ốc Đào <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Late-night snail & shellfish street food · classic Saigon night snack · great after the pub</p><span class="tag tag-snack">Late Snack</span></div>
           <a href="https://maps.app.goo.gl/xJcAjktm4hpC7DZD9" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
         </div>
+
+        <div class="event">
+          <span class="event-time">22:00</span><span class="dot d-coffee"></span>
+          <div class="event-detail">
+            <h4>Linh Ca Phe · or · Linh Coffee</h4>
+            <p>Afternoon coffee break · pick one</p>
+            <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;">
+              <a href="https://maps.app.goo.gl/yy7rXRt9ErqTjW5WA" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;font-size:11px;background:#EEEDFE;color:#3C3489;border-radius:20px;padding:2px 9px;text-decoration:none;font-weight:500;"><i class="ti ti-map-pin" style="font-size:11px"></i> Linh Ca Phe</a>
+              <a href="https://maps.app.goo.gl/BpFNJpCTUzJw8JEw9" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;font-size:11px;background:#EEEDFE;color:#3C3489;border-radius:20px;padding:2px 9px;text-decoration:none;font-weight:500;"><i class="ti ti-map-pin" style="font-size:11px"></i> Linh Coffee</a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -391,9 +468,9 @@
       </div>
       <div class="day-body">
         <div class="event">
-          <span class="event-time">07:30</span><span class="dot d-break"></span>
-          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/KYCpUzqSHut1jE8c6" target="_blank" rel="noopener">Num Pang Ku Dot <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Cambodian-style sandwich breakfast · local favourite</p><span class="tag tag-break">Breakfast</span></div>
-          <a href="https://maps.app.goo.gl/KYCpUzqSHut1jE8c6" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
+          <span class="event-time">09:00</span><span class="dot d-break"></span>
+          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/uXcqRRGPVaN26Bv97" target="_blank" rel="noopener">Phở Hòa Pasteur <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Pho breakfast · local favourite</p><span class="tag tag-break">Breakfast</span></div>
+          <a href="https://maps.app.goo.gl/uXcqRRGPVaN26Bv97" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
         </div>
         <div class="event">
           <span class="event-time">09:00</span><span class="dot d-shop"></span>
@@ -401,18 +478,8 @@
           <a href="https://maps.app.goo.gl/6u7RU7ngEyiqv7vk8" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
         </div>
         <div class="event">
-          <span class="event-time">10:30</span><span class="dot d-coffee"></span>
-          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/kyg4kSVHGZLrJPHn7" target="_blank" rel="noopener">Cafe Linh (Truong Dinh) <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>1 Truong Dinh · ⭐ 4.5 · open till 2AM · coconut ice cream coffee</p><span class="tag tag-coffee">Coffee</span></div>
-          <a href="https://maps.app.goo.gl/kyg4kSVHGZLrJPHn7" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
-        </div>
-        <div class="event">
-          <span class="event-time">12:00</span><span class="dot d-shop"></span>
-          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/aeAuWoyMm35eDu1j8" target="_blank" rel="noopener">The Coffee Apartment <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>42 Nguyen Hue · multi-floor artsy building · explore & browse boutiques</p><span class="tag tag-shop">Explore</span></div>
-          <a href="https://maps.app.goo.gl/aeAuWoyMm35eDu1j8" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
-        </div>
-        <div class="event">
           <span class="event-time">13:30</span><span class="dot d-lunch"></span>
-          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/vZviQbVWUS5nri488" target="_blank" rel="noopener">Kuy Teav Kat <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Cambodian noodle soup · lunch spot from your list</p><span class="tag tag-lunch">Lunch</span></div>
+          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/vZviQbVWUS5nri488" target="_blank" rel="noopener">Bánh Ướt Ban Mê Giang Vương - Tôn Thất Tùng (Kuy Teav Kat) <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Cambodian noodle soup · lunch spot from your list</p><span class="tag tag-lunch">Lunch</span></div>
           <a href="https://maps.app.goo.gl/vZviQbVWUS5nri488" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
         </div>
         <div class="event">
@@ -426,20 +493,13 @@
           <a href="https://maps.app.goo.gl/PZWJtDnr2bDcyrCg9" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
         </div>
         <div class="event">
-          <span class="event-time">18:00</span><span class="dot d-coffee"></span>
-          <div class="event-detail">
-            <h4>Linh Ca Phe · or · Linh Coffee</h4>
-            <p>Afternoon coffee break · pick one</p>
-            <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;">
-              <a href="https://maps.app.goo.gl/yy7rXRt9ErqTjW5WA" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;font-size:11px;background:#EEEDFE;color:#3C3489;border-radius:20px;padding:2px 9px;text-decoration:none;font-weight:500;"><i class="ti ti-map-pin" style="font-size:11px"></i> Linh Ca Phe</a>
-              <a href="https://maps.app.goo.gl/BpFNJpCTUzJw8JEw9" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;font-size:11px;background:#EEEDFE;color:#3C3489;border-radius:20px;padding:2px 9px;text-decoration:none;font-weight:500;"><i class="ti ti-map-pin" style="font-size:11px"></i> Linh Coffee</a>
-            </div>
-          </div>
+          <span class="event-time">19:30</span><span class="dot d-shop"></span>
+          <div class="event-detail"><h4>Bui Vien Walking Street · Pub Night</h4><p>Right outside the door · live music, rooftop bars, street energy · enjoy the night</p><span class="tag tag-shop">Nightlife</span></div>
         </div>
         <div class="event">
-          <span class="event-time">20:00</span><span class="dot d-dinner"></span>
-          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/KaT7GcHiaZM21FTBA" target="_blank" rel="noopener">Banh Canh Kdam (Crab Noodle) <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Rich crab broth · thick noodles · evening dinner</p><span class="tag tag-dinner">Dinner</span></div>
-          <a href="https://maps.app.goo.gl/KaT7GcHiaZM21FTBA" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
+          <span class="event-time">22:00</span><span class="dot d-shop"></span>
+          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/aeAuWoyMm35eDu1j8" target="_blank" rel="noopener">The Coffee Apartment <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>42 Nguyen Hue · multi-floor artsy building · explore & browse boutiques</p><span class="tag tag-shop">Explore</span></div>
+          <a href="https://maps.app.goo.gl/aeAuWoyMm35eDu1j8" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
         </div>
       </div>
     </div>
@@ -454,7 +514,7 @@
       <div class="day-body">
         <div class="event">
           <span class="event-time">07:30</span><span class="dot d-break"></span>
-          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/XrkemHtZfiyHwSdJ6" target="_blank" rel="noopener">Bay Bii <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Note: taste is a bit flat — try with extra condiments</p><span class="tag tag-break">Breakfast</span></div>
+          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/XrkemHtZfiyHwSdJ6" target="_blank" rel="noopener">Cơm Tấm Ba Ghiền (Bay Bii) <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Note: taste is a bit flat — try with extra condiments</p><span class="tag tag-break">Breakfast</span></div>
           <a href="https://maps.app.goo.gl/XrkemHtZfiyHwSdJ6" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
         </div>
         <div class="event">
@@ -467,6 +527,12 @@
           <div class="event-detail"><h4><a href="https://maps.app.goo.gl/gmn8TahdL9Us4qK17" target="_blank" rel="noopener">Wholesale Shopping (Cheap Market) <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Budget / wholesale price market · stock up on finds</p><span class="tag tag-shop">Shopping</span></div>
           <a href="https://maps.app.goo.gl/gmn8TahdL9Us4qK17" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
         </div>
+        <div class="event">
+          <span class="event-time">10:30</span><span class="dot d-coffee"></span>
+          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/kyg4kSVHGZLrJPHn7" target="_blank" rel="noopener">Cafe Linh (Truong Dinh) <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>1 Truong Dinh · ⭐ 4.5 · open till 2AM · coconut ice cream coffee</p><span class="tag tag-coffee">Coffee</span></div>
+          <a href="https://maps.app.goo.gl/kyg4kSVHGZLrJPHn7" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
+        </div>
+        
         <div class="event">
           <span class="event-time">12:30</span><span class="dot d-snack"></span>
           <div class="event-detail"><h4><a href="https://maps.app.goo.gl/XrkemHtZfiyHwSdJ6" target="_blank" rel="noopener">Banh Mi (Num Pang Sach) <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Quick street snack between shopping stops</p><span class="tag tag-snack">Snack</span></div>
@@ -499,6 +565,12 @@
           <div class="event-detail"><h4><a href="https://maps.app.goo.gl/Ry3zCJ1SkLqpkszg6" target="_blank" rel="noopener">Seafood Pu Kse Kor Thom <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Big seafood dinner to close out the trip</p><span class="tag tag-dinner">Dinner</span></div>
           <a href="https://maps.app.goo.gl/Ry3zCJ1SkLqpkszg6" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
         </div>
+
+        <div class="event">
+          <span class="event-time">20:00</span><span class="dot d-dinner"></span>
+          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/KaT7GcHiaZM21FTBA" target="_blank" rel="noopener">Banh Canh Kdam (Crab Noodle) <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Rich crab broth · thick noodles · evening dinner</p><span class="tag tag-dinner">Dinner</span></div>
+          <a href="https://maps.app.goo.gl/KaT7GcHiaZM21FTBA" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
+        </div>
       </div>
     </div>
 
@@ -506,10 +578,15 @@
     <div class="day-card">
       <div class="day-header" onclick="toggleDay(this)">
         <span class="day-num">Day 4 · Jun 21</span>
-        <span class="day-title">Checkout · Bus Station · Depart to Phnom Penh</span>
+        <span class="day-title">Bò Né Bà Nũi · Checkout · Giant Ibis · Depart to Phnom Penh</span>
         <span class="day-toggle"><i class="ti ti-chevron-down"></i></span>
       </div>
       <div class="day-body">
+        <div class="event">
+          <span class="event-time">09:00</span><span class="dot d-break"></span>
+          <div class="event-detail"><h4><a href="https://maps.app.goo.gl/AdB5pAhHqngfGNbD8" target="_blank" rel="noopener">Bò Né Bà Nũi (បាយគោដុត បាយជ្រូកអាំង)<i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Last breakfast in Saigon before checkout</p><span class="tag tag-break">Breakfast</span></div>
+          <a href="https://maps.app.goo.gl/AdB5pAhHqngfGNbD8" target="_blank" rel="noopener" class="map-btn"><i class="ti ti-map-2"></i></a>
+        </div>
         <div class="event">
           <span class="event-time">11:00</span><span class="dot d-transit"></span>
           <div class="event-detail"><h4><a href="https://maps.app.goo.gl/LpF3rYMLj1AqYyUo8" target="_blank" rel="noopener">Checkout · MIN Apartment, RiverGate Residence <i class="ti ti-external-link" style="font-size:10px;opacity:.5"></i></a></h4><p>Pack up and check out · last look at Bui Vien</p><span class="tag tag-transit">Checkout</span></div>
@@ -529,7 +606,7 @@
 
     <div class="info-note">
       <i class="ti ti-info-circle" style="margin-top:1px;flex-shrink:0"></i>
-      Alternates not in main plan: <a href="https://maps.app.goo.gl/uah2KHuL9BEJxGfB9" target="_blank" rel="noopener" style="color:#0C447C;">Bun Cha</a> · <a href="https://maps.app.goo.gl/eze2U5CiSWithekG7" target="_blank" rel="noopener" style="color:#0C447C;">Banh Chev</a> · <a href="https://maps.app.goo.gl/BrSrzuBMC1WtChgT8" target="_blank" rel="noopener" style="color:#0C447C;">Pho Quynh</a> · <a href="https://maps.app.goo.gl/TwE4gJoqTdaK5mrY7" target="_blank" rel="noopener" style="color:#0C447C;">Banh Mi #2</a> — rotate as alternatives or snack stops.
+      Have free time? Check the <strong>Discover</strong> tab for alternates and extra spots to fill gaps in the schedule.
     </div>
   </div>
 
@@ -550,10 +627,10 @@
     <div class="section-label"><i class="ti ti-tools-kitchen-2"></i> Food & Dining</div>
     <div class="place-list" style="margin-bottom:1rem">
       <div class="place-row"><i class="ti ti-soup place-icon"></i><div><div class="place-name">Pho Quynh</div><div class="place-sub">Open 24/7 · alternate breakfast</div></div><span class="place-badge pb-food">Alt</span><a href="https://maps.app.goo.gl/BrSrzuBMC1WtChgT8" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
-      <div class="place-row"><i class="ti ti-bread place-icon"></i><div><div class="place-name">Num Pang Ku Dot</div><div class="place-sub">Cambodian breakfast sandwich</div></div><span class="place-badge pb-food">Day 2</span><a href="https://maps.app.goo.gl/KYCpUzqSHut1jE8c6" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
-      <div class="place-row"><i class="ti ti-bread place-icon"></i><div><div class="place-name">Bay Bii</div><div class="place-sub">Note: taste a bit flat — add condiments</div></div><span class="place-badge pb-food">Day 3</span><a href="https://maps.app.goo.gl/XrkemHtZfiyHwSdJ6" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
-      <div class="place-row"><i class="ti ti-soup place-icon"></i><div><div class="place-name">Kuy Teav Kat</div><div class="place-sub">Cambodian noodle soup · lunch</div></div><span class="place-badge pb-food">Day 2</span><a href="https://maps.app.goo.gl/vZviQbVWUS5nri488" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
-      <div class="place-row"><i class="ti ti-flame place-icon"></i><div><div class="place-name">BBQ Dinner</div><div class="place-sub">Evening BBQ · Day 1 first dinner</div></div><span class="place-badge pb-food">Day 1</span><a href="https://maps.app.goo.gl/BpFNJpCTUzJw8JEw9" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
+      <div class="place-row"><i class="ti ti-bread place-icon"></i><div><div class="place-name">Quán Ngon - Bún Chả Hà Nội (Num Pang Ku Dot)</div><div class="place-sub">Cambodian breakfast sandwich</div></div><span class="place-badge pb-food">Day 2</span><a href="https://maps.app.goo.gl/KYCpUzqSHut1jE8c6" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
+      <div class="place-row"><i class="ti ti-bread place-icon"></i><div><div class="place-name">Bay Bii (Cơm Tấm Ba Ghiền)</div><div class="place-sub">Note: taste a bit flat — add condiments</div></div><span class="place-badge pb-food">Day 3</span><a href="https://maps.app.goo.gl/XrkemHtZfiyHwSdJ6" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
+      <div class="place-row"><i class="ti ti-soup place-icon"></i><div><div class="place-name">Bánh Ướt Ban Mê Giang Vương - Tôn Thất Tùng (Kuy Teav Kat)</div><div class="place-sub">Cambodian noodle soup · lunch</div></div><span class="place-badge pb-food">Day 2</span><a href="https://maps.app.goo.gl/vZviQbVWUS5nri488" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
+      <div class="place-row"><i class="ti ti-flame place-icon"></i><div><div class="place-name">Linh Coffee</div><div class="place-sub">Evening BBQ · Day 1 first dinner</div></div><span class="place-badge pb-food">Day 1</span><a href="https://maps.app.goo.gl/BpFNJpCTUzJw8JEw9" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
       <div class="place-row"><i class="ti ti-fish place-icon"></i><div><div class="place-name">Banh Canh Kdam</div><div class="place-sub">Rich crab broth noodles · dinner</div></div><span class="place-badge pb-food">Day 2</span><a href="https://maps.app.goo.gl/KaT7GcHiaZM21FTBA" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
       <div class="place-row"><i class="ti ti-fish place-icon"></i><div><div class="place-name">Seafood Pu Kse Kor Thom</div><div class="place-sub">Big seafood restaurant · closing dinner</div></div><span class="place-badge pb-food">Day 3</span><a href="https://maps.app.goo.gl/Ry3zCJ1SkLqpkszg6" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
       <div class="place-row"><i class="ti ti-fish place-icon"></i><div><div class="place-name">Ốc Đào</div><div class="place-sub">Snail & shellfish · late-night street food</div></div><span class="place-badge pb-snack">Day 1 Night</span><a href="https://maps.app.goo.gl/xJcAjktm4hpC7DZD9" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
@@ -575,6 +652,146 @@
       <div class="place-row"><i class="ti ti-shopping-cart place-icon"></i><div><div class="place-name">Shopping Spot 2</div><div class="place-sub">Day 3 afternoon shopping</div></div><span class="place-badge pb-shop">Day 3</span><a href="https://maps.app.goo.gl/qXxbxZDU9TD4AUua8" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
       <div class="place-row"><i class="ti ti-fish place-icon"></i><div><div class="place-name">Seafood Market</div><div class="place-sub">Seafood spot from your list</div></div><span class="place-badge pb-shop">Ref</span><a href="https://maps.app.goo.gl/GRRN7VZQ5NB6NLod7" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a></div>
     </div>
+  </div>
+
+  <!-- DISCOVER -->
+  <div id="discover" class="section">
+    <p style="font-size:13px;color:#888;margin-bottom:.75rem">Alternate spots & extras. Tap a tag to filter.</p>
+
+    <div class="sug-filters">
+      <div class="sug-filter active" data-tag="all" onclick="filterSug('all',this)">All</div>
+      <div class="sug-filter" data-tag="breakfast" onclick="filterSug('breakfast',this)">🍳 Breakfast</div>
+      <div class="sug-filter" data-tag="coffee" onclick="filterSug('coffee',this)">☕ Coffee</div>
+      <div class="sug-filter" data-tag="snack" onclick="filterSug('snack',this)">🧆 Snack</div>
+      <div class="sug-filter" data-tag="bbq" onclick="filterSug('bbq',this)">🔥 BBQ</div>
+      <div class="sug-filter" data-tag="pub" onclick="filterSug('pub',this)">🍺 Pub</div>
+      <div class="sug-filter" data-tag="latenight" onclick="filterSug('latenight',this)">🌙 Late Night</div>
+      <div class="sug-filter" data-tag="explore" onclick="filterSug('explore',this)">🗺 Explore</div>
+      <div class="sug-filter" data-tag="shopping" onclick="filterSug('shopping',this)">🛍 Shopping</div>
+    </div>
+
+    <div class="sug-grid">
+      <div class="sug-card" data-tags="breakfast latenight">
+        <div class="sug-icon">🍜</div>
+        <div class="sug-body">
+          <div class="sug-name">Pho Quynh</div>
+          <div class="sug-desc">323 Pham Ngu Lao · open 24/7 · rich broth, fresh herbs</div>
+          <div class="sug-tags"><span class="sug-tag st-breakfast">Breakfast</span><span class="sug-tag st-latenight">Late Night</span></div>
+        </div>
+        <a href="https://maps.app.goo.gl/BrSrzuBMC1WtChgT8" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a>
+      </div>
+
+      <div class="sug-card" data-tags="snack breakfast">
+        <div class="sug-icon">🥖</div>
+        <div class="sug-body">
+          <div class="sug-name">Banh Mi #2 (Num Pang Sach)</div>
+          <div class="sug-desc">Street sandwich · quick, cheap, delicious</div>
+          <div class="sug-tags"><span class="sug-tag st-snack">Snack</span><span class="sug-tag st-breakfast">Breakfast</span></div>
+        </div>
+        <a href="https://maps.app.goo.gl/TwE4gJoqTdaK5mrY7" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a>
+      </div>
+
+      <div class="sug-card" data-tags="snack">
+        <div class="sug-icon">🫔</div>
+        <div class="sug-body">
+          <div class="sug-name">Banh Chev</div>
+          <div class="sug-desc">Vietnamese savoury crepe · great street snack</div>
+          <div class="sug-tags"><span class="sug-tag st-snack">Snack</span></div>
+        </div>
+        <a href="https://maps.app.goo.gl/eze2U5CiSWithekG7" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a>
+      </div>
+
+      <div class="sug-card" data-tags="snack">
+        <div class="sug-icon">🍝</div>
+        <div class="sug-body">
+          <div class="sug-name">Bun Cha</div>
+          <div class="sug-desc">Grilled pork with vermicelli noodles · classic Vietnamese</div>
+          <div class="sug-tags"><span class="sug-tag st-snack">Snack</span></div>
+        </div>
+        <a href="https://maps.app.goo.gl/uah2KHuL9BEJxGfB9" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a>
+      </div>
+
+      <div class="sug-card" data-tags="coffee">
+        <div class="sug-icon">☕</div>
+        <div class="sug-body">
+          <div class="sug-name">Eggyolk Coffee</div>
+          <div class="sug-desc">220 Le Thanh Ton · ⭐ 4.9 · famous egg yolk coffee</div>
+          <div class="sug-tags"><span class="sug-tag st-coffee">Coffee</span></div>
+        </div>
+        <a href="https://maps.app.goo.gl/NjUVXhDgStvmEW8e7" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a>
+      </div>
+
+      <div class="sug-card" data-tags="coffee">
+        <div class="sug-icon">☕</div>
+        <div class="sug-body">
+          <div class="sug-name">Cong Ca Phe</div>
+          <div class="sug-desc">26/15 Ly Tu Trong · vintage military decor · coconut coffee</div>
+          <div class="sug-tags"><span class="sug-tag st-coffee">Coffee</span></div>
+        </div>
+        <a href="https://maps.app.goo.gl/Yi46Rz1WzULxuKQr8" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a>
+      </div>
+
+      <div class="sug-card" data-tags="bbq">
+        <div class="sug-icon">🔥</div>
+        <div class="sug-body">
+          <div class="sug-name">BBQ Dinner Spot</div>
+          <div class="sug-desc">Evening BBQ near Bui Vien · Day 1 first dinner</div>
+          <div class="sug-tags"><span class="sug-tag st-bbq">BBQ</span></div>
+        </div>
+        <a href="https://maps.app.goo.gl/BpFNJpCTUzJw8JEw9" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a>
+      </div>
+
+      <div class="sug-card" data-tags="pub latenight">
+        <div class="sug-icon">🍺</div>
+        <div class="sug-body">
+          <div class="sug-name">Bui Vien Walking Street</div>
+          <div class="sug-desc">Right outside MIN Apartment · live music, rooftop bars, street energy</div>
+          <div class="sug-tags"><span class="sug-tag st-pub">Pub</span><span class="sug-tag st-latenight">Late Night</span></div>
+        </div>
+      </div>
+
+      <div class="sug-card" data-tags="snack latenight">
+        <div class="sug-icon">🐚</div>
+        <div class="sug-body">
+          <div class="sug-name">Ốc Đào</div>
+          <div class="sug-desc">Snail & shellfish street food · classic Saigon night snack</div>
+          <div class="sug-tags"><span class="sug-tag st-snack">Snack</span><span class="sug-tag st-latenight">Late Night</span></div>
+        </div>
+        <a href="https://maps.app.goo.gl/xJcAjktm4hpC7DZD9" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a>
+      </div>
+
+      <div class="sug-card" data-tags="explore">
+        <div class="sug-icon">📚</div>
+        <div class="sug-body">
+          <div class="sug-name">Book Street (Nguyen Van Binh)</div>
+          <div class="sug-desc">⭐ 4.6 · open 8AM–9PM · postcards, vintage books, chill vibe</div>
+          <div class="sug-tags"><span class="sug-tag st-explore">Explore</span></div>
+        </div>
+        <a href="https://maps.app.goo.gl/6GpqkaAApj3uGm3p6" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a>
+      </div>
+
+      <div class="sug-card" data-tags="shopping explore">
+        <div class="sug-icon">🏬</div>
+        <div class="sug-body">
+          <div class="sug-name">Saigon Centre (Takashimaya)</div>
+          <div class="sug-desc">65-67 Le Loi · ⭐ 4.5 · rooftop garden on top floor</div>
+          <div class="sug-tags"><span class="sug-tag st-shopping">Shopping</span><span class="sug-tag st-explore">Explore</span></div>
+        </div>
+        <a href="https://maps.app.goo.gl/XyPNc4UVjLHCesd7A" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a>
+      </div>
+
+      <div class="sug-card" data-tags="explore shopping">
+        <div class="sug-icon">🏠</div>
+        <div class="sug-body">
+          <div class="sug-name">The Coffee Apartment</div>
+          <div class="sug-desc">42 Nguyen Hue · ⭐ 4.4 · multi-floor artsy building · boutiques</div>
+          <div class="sug-tags"><span class="sug-tag st-explore">Explore</span><span class="sug-tag st-shopping">Shopping</span></div>
+        </div>
+        <a href="https://maps.app.goo.gl/aeAuWoyMm35eDu1j8" target="_blank" rel="noopener" class="place-map"><i class="ti ti-map-2"></i></a>
+      </div>
+    </div>
+
+    <div class="sug-empty" id="sugEmpty">No places match this tag.</div>
   </div>
 
   <!-- TIPS -->
@@ -609,6 +826,19 @@
       body.style.display = 'none';
       icon.className = 'ti ti-chevron-up';
     }
+  }
+
+  function filterSug(tag, el) {
+    document.querySelectorAll('.sug-filter').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    let visible = 0;
+    document.querySelectorAll('.sug-card').forEach(card => {
+      const tags = card.dataset.tags || '';
+      const show = tag === 'all' || tags.includes(tag);
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    document.getElementById('sugEmpty').style.display = visible === 0 ? 'block' : 'none';
   }
 
   let activeFilter = 'all';
